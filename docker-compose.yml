@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: ./client
+    volumes:
+      - ./client:/app
+    ports:
+      - 5004:5000
+    env_file: 
+      - .env
+    depends_on: 
+      - postgres
+
+
+  postgres:
+    image: postgres:13
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+    volumes:
+        - ./postgres-data:/var/lib/postgresql/data
+    restart: always
+    
